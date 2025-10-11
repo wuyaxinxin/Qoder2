@@ -156,6 +156,41 @@ public class Student extends Person {
     }
     
     /**
+     * 删除指定课程成绩
+     * @param course 课程名称
+     * @return 如果删除成功返回true，否则返回false
+     */
+    public boolean removeScore(String course) {
+        return scores.remove(course) != null;
+    }
+    
+    /**
+     * 获取课程数量
+     * @return 已选课程数量
+     */
+    public int getCourseCount() {
+        return scores.size();
+    }
+    
+    /**
+     * 检查是否通过指定课程（成绩>=60）
+     * @param course 课程名称
+     * @return 如果通过返回true，否则返回false
+     */
+    public boolean isPassedCourse(String course) {
+        double score = getScore(course);
+        return score >= 60.0 && score != -1.0;
+    }
+    
+    /**
+     * 获取通过的课程数量
+     * @return 通过的课程数量
+     */
+    public int getPassedCourseCount() {
+        return (int) scores.values().stream().filter(score -> score >= 60.0).count();
+    }
+    
+    /**
      * 获取学生完整信息描述
      * @return 学生信息字符串
      */
