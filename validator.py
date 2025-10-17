@@ -126,6 +126,83 @@ class Validator:
         return invalid_fields
 
 
+    @staticmethod
+    def validate_course_id(course_id: str) -> bool:
+        """
+        验证课程ID格式（2-3个大写字母 + 3位数字，如CS101）
+        
+        Args:
+            course_id (str): 课程ID
+            
+        Returns:
+            bool: 格式正确返回True，否则返回False
+        """
+        if not isinstance(course_id, str):
+            return False
+        pattern = r'^[A-Z]{2,3}\d{3}$'
+        return re.match(pattern, course_id) is not None
+    
+    @staticmethod
+    def validate_credit(credit: Any) -> bool:
+        """
+        验证学分（0.5-10.0）
+        
+        Args:
+            credit (Any): 学分值
+            
+        Returns:
+            bool: 有效返回True，否则返回False
+        """
+        if not Validator.is_number(credit):
+            return False
+        return Validator.is_in_range(credit, 0.5, 10.0)
+    
+    @staticmethod
+    def validate_capacity(capacity: Any) -> bool:
+        """
+        验证课程容量（1-500的正整数）
+        
+        Args:
+            capacity (Any): 课程容量
+            
+        Returns:
+            bool: 有效返回True，否则返回False
+        """
+        if not Validator.is_integer(capacity):
+            return False
+        return Validator.is_in_range(capacity, 1, 500)
+    
+    @staticmethod
+    def validate_course_name(course_name: str) -> bool:
+        """
+        验证课程名称（2-50字符）
+        
+        Args:
+            course_name (str): 课程名称
+            
+        Returns:
+            bool: 有效返回True，否则返回False
+        """
+        return Validator.is_length_valid(course_name, 2, 50)
+    
+    @staticmethod
+    def validate_semester(semester: str) -> bool:
+        """
+        验证学期格式（年份+季节，如2024春季）
+        
+        Args:
+            semester (str): 学期
+            
+        Returns:
+            bool: 格式正确返回True，否则返回False
+        """
+        if not isinstance(semester, str):
+            return False
+        # 支持格式: 2024春季, 2024秋季, 2024-1, 2024-2等
+        pattern = r'^20\d{2}[春夏秋冬季]|20\d{2}-[12]$'
+        return re.match(pattern, semester) is not None or semester == ""
+
+
 class ValidationError(Exception):
     """验证错误异常"""
     

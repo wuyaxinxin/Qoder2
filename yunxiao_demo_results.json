@@ -1,0 +1,289 @@
+{
+  "timestamp": "2025-10-17T16:53:11.101922",
+  "total_demos": 10,
+  "results": [
+    {
+      "timestamp": "2025-10-17T16:53:11.099454",
+      "operation": "获取组织信息",
+      "status": "演示完成",
+      "details": {
+        "organizationId": "5f7a8b9c0d1e2f3g4h5i",
+        "name": "示例科技公司",
+        "userId": "user123456"
+      }
+    },
+    {
+      "timestamp": "2025-10-17T16:53:11.100618",
+      "operation": "搜索项目",
+      "status": "演示完成",
+      "details": {
+        "params": {
+          "organizationId": "5f7a8b9c0d1e2f3g4h5i",
+          "scenarioFilter": "participate",
+          "page": 1,
+          "perPage": 10
+        },
+        "response": {
+          "total": 15,
+          "projects": [
+            {
+              "id": "proj001",
+              "name": "学生管理系统",
+              "creator": "张三",
+              "gmtCreate": "2025-01-15T10:00:00Z",
+              "status": "NORMAL"
+            },
+            {
+              "id": "proj002",
+              "name": "课程管理平台",
+              "creator": "李四",
+              "gmtCreate": "2025-02-01T14:30:00Z",
+              "status": "NORMAL"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp": "2025-10-17T16:53:11.100769",
+      "operation": "创建工作项",
+      "status": "演示完成",
+      "details": {
+        "params": {
+          "organizationId": "5f7a8b9c0d1e2f3g4h5i",
+          "spaceId": "proj001",
+          "subject": "优化学生信息查询性能",
+          "workitemTypeId": "task_type_001",
+          "assignedTo": "user123456",
+          "description": "当前学生信息查询在数据量大时响应较慢,需要优化查询逻辑和添加缓存机制",
+          "sprint": "sprint_2025_03"
+        },
+        "response": {
+          "workItemId": "workitem_12345",
+          "subject": "优化学生信息查询性能",
+          "status": "待处理",
+          "assignedTo": "user123456",
+          "gmtCreate": "2025-10-17T16:53:11.100684"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-10-17T16:53:11.100909",
+      "operation": "搜索工作项",
+      "status": "演示完成",
+      "details": {
+        "params": {
+          "organizationId": "5f7a8b9c0d1e2f3g4h5i",
+          "spaceId": "proj001",
+          "category": "Task",
+          "assignedTo": "self",
+          "status": "100010",
+          "includeDetails": true
+        },
+        "response": {
+          "total": 5,
+          "workitems": [
+            {
+              "workItemId": "workitem_12345",
+              "subject": "优化学生信息查询性能",
+              "status": "进行中",
+              "assignedTo": "张三",
+              "description": "当前学生信息查询在数据量大时响应较慢...",
+              "priority": "高",
+              "gmtCreate": "2025-03-01T10:00:00Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp": "2025-10-17T16:53:11.101033",
+      "operation": "获取代码仓库列表",
+      "status": "演示完成",
+      "details": {
+        "params": {
+          "organizationId": "5f7a8b9c0d1e2f3g4h5i",
+          "page": 1,
+          "perPage": 10,
+          "search": "student"
+        },
+        "response": {
+          "total": 3,
+          "repositories": [
+            {
+              "id": "2835387",
+              "name": "student-management-system",
+              "path": "student-management-system",
+              "httpUrlToRepo": "https://codeup.example.com/org/student-management-system.git",
+              "lastActivityAt": "2025-03-10T15:30:00Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp": "2025-10-17T16:53:11.101249",
+      "operation": "获取分支列表",
+      "status": "演示完成",
+      "details": {
+        "params": {
+          "organizationId": "5f7a8b9c0d1e2f3g4h5i",
+          "repositoryId": "2835387",
+          "page": 1,
+          "perPage": 20
+        },
+        "response": {
+          "total": 5,
+          "branches": [
+            {
+              "name": "master",
+              "commit": {
+                "id": "abc123def456",
+                "message": "feat: 添加学生信息导出功能",
+                "authoredDate": "2025-03-15T10:30:00Z"
+              },
+              "protected": true
+            },
+            {
+              "name": "develop",
+              "commit": {
+                "id": "def456ghi789",
+                "message": "fix: 修复成绩计算bug",
+                "authoredDate": "2025-03-14T16:20:00Z"
+              },
+              "protected": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp": "2025-10-17T16:53:11.101370",
+      "operation": "创建流水线",
+      "status": "演示完成",
+      "details": {
+        "params": {
+          "organizationId": "5f7a8b9c0d1e2f3g4h5i",
+          "name": "学生管理系统-自动化构建",
+          "buildLanguage": "python",
+          "buildTool": "pip",
+          "repoUrl": "https://codeup.example.com/org/student-management-system.git",
+          "branch": "master",
+          "deployTarget": "none",
+          "pythonVersion": "3.12"
+        },
+        "response": {
+          "pipelineId": "pipeline_67890",
+          "name": "学生管理系统-自动化构建",
+          "status": "CREATED",
+          "webUrl": "https://yunxiao.example.com/pipelines/pipeline_67890"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-10-17T16:53:11.101496",
+      "operation": "获取流水线列表",
+      "status": "演示完成",
+      "details": {
+        "params": {
+          "organizationId": "5f7a8b9c0d1e2f3g4h5i",
+          "timeReference": "this week",
+          "statusList": "SUCCESS,RUNNING",
+          "page": 1,
+          "perPage": 10
+        },
+        "response": {
+          "total": 8,
+          "pipelines": [
+            {
+              "pipelineId": "pipeline_67890",
+              "pipelineName": "学生管理系统-自动化构建",
+              "status": "SUCCESS",
+              "gmtCreate": "2025-03-10T09:00:00Z",
+              "gmtExecute": "2025-03-15T14:30:00Z"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "timestamp": "2025-10-17T16:53:11.101606",
+      "operation": "运行流水线",
+      "status": "演示完成",
+      "details": {
+        "params": {
+          "organizationId": "5f7a8b9c0d1e2f3g4h5i",
+          "pipelineId": "pipeline_67890",
+          "branches": [
+            "master"
+          ],
+          "environmentVariables": {
+            "ENV": "production",
+            "BUILD_VERSION": "1.0.0"
+          }
+        },
+        "response": {
+          "pipelineRunId": "run_11111",
+          "status": "RUNNING",
+          "startTime": "2025-10-17T16:53:11.101545"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-10-17T16:53:11.101767",
+      "operation": "完整工作流程",
+      "status": "演示完成",
+      "details": {
+        "workflow": [
+          {
+            "step": 1,
+            "action": "创建需求",
+            "tool": "mcp_yunxiao_create_work_item",
+            "params": {
+              "subject": "实现学生成绩统计功能",
+              "workitemTypeId": "req_type_001"
+            }
+          },
+          {
+            "step": 2,
+            "action": "创建开发分支",
+            "tool": "mcp_yunxiao_create_branch",
+            "params": {
+              "branch": "feature/grade-statistics",
+              "ref": "master"
+            }
+          },
+          {
+            "step": 3,
+            "action": "提交代码",
+            "tool": "mcp_yunxiao_create_file",
+            "params": {
+              "filePath": "grade_statistics.py",
+              "content": "# 成绩统计模块",
+              "branch": "feature/grade-statistics"
+            }
+          },
+          {
+            "step": 4,
+            "action": "触发流水线",
+            "tool": "mcp_yunxiao_create_pipeline_run",
+            "params": {
+              "branches": [
+                "feature/grade-statistics"
+              ]
+            }
+          },
+          {
+            "step": 5,
+            "action": "查看构建日志",
+            "tool": "mcp_yunxiao_get_pipeline_job_run_log",
+            "params": {
+              "pipelineRunId": "run_12345",
+              "jobId": "job_001"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
