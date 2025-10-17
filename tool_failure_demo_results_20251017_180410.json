@@ -1,0 +1,448 @@
+{
+  "demo_info": {
+    "title": "工具调用失败场景演示",
+    "timestamp": "2025-10-17 18:04:10",
+    "total_scenarios": 32
+  },
+  "categories": {
+    "文件操作": 4,
+    "网络请求": 8,
+    "API调用": 6,
+    "数据解析": 4,
+    "系统资源": 3,
+    "MCP工具": 4,
+    "工作流": 3
+  },
+  "failures": [
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "文件操作",
+      "scenario": "读取不存在的文件",
+      "error_type": "FileNotFoundError",
+      "error_message": "[Errno 2] No such file or directory: '/nonexistent/path/file.txt'",
+      "details": {
+        "attempted_path": "/nonexistent/path/file.txt",
+        "operation": "read",
+        "suggestion": "检查文件路径是否正确，文件是否存在"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "文件操作",
+      "scenario": "权限不足无法写入文件",
+      "error_type": "FileNotFoundError",
+      "error_message": "[Errno 2] No such file or directory: '/root/restricted_file.txt'",
+      "details": {
+        "attempted_path": "/root/restricted_file.txt",
+        "operation": "write"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "文件操作",
+      "scenario": "磁盘空间不足",
+      "error_type": "OSError",
+      "error_message": "[Errno 28] No space left on device",
+      "details": {
+        "operation": "write",
+        "file_size": "10GB",
+        "available_space": "100MB",
+        "suggestion": "清理磁盘空间或使用其他存储位置"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "文件操作",
+      "scenario": "文件被其他进程占用",
+      "error_type": "PermissionError",
+      "error_message": "[Errno 13] Permission denied: file is being used by another process",
+      "details": {
+        "file_path": "data/locked_file.db",
+        "operation": "delete",
+        "suggestion": "关闭占用文件的进程或等待其释放"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "网络请求",
+      "scenario": "连接超时",
+      "error_type": "TimeoutError",
+      "error_message": "Connection timed out after 30 seconds",
+      "details": {
+        "url": "https://api.example.com/slow-endpoint",
+        "timeout": 30,
+        "method": "GET",
+        "suggestion": "增加超时时间或检查网络连接"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "网络请求",
+      "scenario": "资源不存在",
+      "error_type": "HTTPError",
+      "error_message": "404 Not Found: The requested resource does not exist",
+      "details": {
+        "url": "https://api.github.com/repos/nonexistent/repo",
+        "status_code": 404,
+        "method": "GET",
+        "suggestion": "检查URL是否正确，资源是否存在"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "网络请求",
+      "scenario": "认证失败",
+      "error_type": "AuthenticationError",
+      "error_message": "401 Unauthorized: Invalid or missing authentication token",
+      "details": {
+        "url": "https://api.github.com/user/repos",
+        "status_code": 401,
+        "auth_type": "Bearer Token",
+        "suggestion": "检查认证凭据是否正确或是否已过期"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "网络请求",
+      "scenario": "权限不足",
+      "error_type": "ForbiddenError",
+      "error_message": "403 Forbidden: You don't have permission to access this resource",
+      "details": {
+        "url": "https://api.github.com/repos/private/repo",
+        "status_code": 403,
+        "required_permission": "repo:read",
+        "suggestion": "检查账户权限或申请必要的访问权限"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "网络请求",
+      "scenario": "请求频率超限",
+      "error_type": "RateLimitError",
+      "error_message": "429 Too Many Requests: API rate limit exceeded",
+      "details": {
+        "url": "https://api.github.com/search/repositories",
+        "status_code": 429,
+        "rate_limit": "60 requests/hour",
+        "retry_after": "3600 seconds",
+        "suggestion": "等待限制重置或使用认证以获取更高限额"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "网络请求",
+      "scenario": "服务器内部错误",
+      "error_type": "InternalServerError",
+      "error_message": "500 Internal Server Error: The server encountered an error",
+      "details": {
+        "url": "https://api.example.com/endpoint",
+        "status_code": 500,
+        "suggestion": "稍后重试或联系服务提供商"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "网络请求",
+      "scenario": "服务暂时不可用",
+      "error_type": "ServiceUnavailableError",
+      "error_message": "503 Service Unavailable: The service is temporarily unavailable",
+      "details": {
+        "url": "https://api.example.com/endpoint",
+        "status_code": 503,
+        "retry_after": "300 seconds",
+        "suggestion": "服务维护中，请稍后重试"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "网络请求",
+      "scenario": "DNS解析失败",
+      "error_type": "DNSError",
+      "error_message": "Failed to resolve hostname: nonexistent-domain.com",
+      "details": {
+        "hostname": "nonexistent-domain.com",
+        "dns_server": "8.8.8.8",
+        "suggestion": "检查域名是否正确或DNS服务器设置"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "API调用",
+      "scenario": "缺少必需参数",
+      "error_type": "ValidationError",
+      "error_message": "Missing required parameter: 'organizationId'",
+      "details": {
+        "api": "mcp_yunxiao_create_pipeline",
+        "missing_params": [
+          "organizationId"
+        ],
+        "provided_params": [
+          "name",
+          "buildLanguage"
+        ],
+        "suggestion": "补充所有必需参数"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "API调用",
+      "scenario": "参数类型错误",
+      "error_type": "TypeError",
+      "error_message": "Parameter 'page' must be an integer, got string",
+      "details": {
+        "api": "mcp_yunxiao_list_pipelines",
+        "parameter": "page",
+        "expected_type": "integer",
+        "actual_type": "string",
+        "actual_value": "first_page",
+        "suggestion": "确保参数类型正确"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "API调用",
+      "scenario": "参数值超出范围",
+      "error_type": "ValueError",
+      "error_message": "Parameter 'perPage' must be between 1 and 100, got 500",
+      "details": {
+        "api": "mcp_yunxiao_list_pipelines",
+        "parameter": "perPage",
+        "min_value": 1,
+        "max_value": 100,
+        "actual_value": 500,
+        "suggestion": "调整参数值在有效范围内"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "API调用",
+      "scenario": "资源不存在",
+      "error_type": "ResourceNotFoundError",
+      "error_message": "Pipeline with ID 'nonexistent-pipeline-id' not found",
+      "details": {
+        "api": "mcp_yunxiao_get_pipeline",
+        "resource_type": "Pipeline",
+        "resource_id": "nonexistent-pipeline-id",
+        "suggestion": "检查资源ID是否正确"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "API调用",
+      "scenario": "资源已存在",
+      "error_type": "ConflictError",
+      "error_message": "Pipeline with name 'my-pipeline' already exists",
+      "details": {
+        "api": "mcp_yunxiao_create_pipeline",
+        "resource_type": "Pipeline",
+        "conflict_field": "name",
+        "conflict_value": "my-pipeline",
+        "suggestion": "使用不同的名称或更新现有资源"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "API调用",
+      "scenario": "依赖资源缺失",
+      "error_type": "DependencyError",
+      "error_message": "Service connection not found: required for pipeline creation",
+      "details": {
+        "api": "mcp_yunxiao_create_pipeline",
+        "missing_dependency": "serviceConnection",
+        "dependency_id": "sc-123456",
+        "suggestion": "先创建依赖资源或使用存在的资源ID"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "数据解析",
+      "scenario": "JSON格式错误",
+      "error_type": "JSONDecodeError",
+      "error_message": "Expecting value: line 1 column 27 (char 26)",
+      "details": {
+        "data": "{\"name\": \"test\", \"value\": }",
+        "position": 26,
+        "suggestion": "检查JSON格式是否正确"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "数据解析",
+      "scenario": "数据类型不匹配",
+      "error_type": "TypeError",
+      "error_message": "Expected dict, got list",
+      "details": {
+        "expected_type": "dict",
+        "actual_type": "list",
+        "field": "response.data",
+        "suggestion": "检查API返回数据结构"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "数据解析",
+      "scenario": "缺少必需字段",
+      "error_type": "KeyError",
+      "error_message": "Required field 'id' not found in response",
+      "details": {
+        "missing_fields": [
+          "id"
+        ],
+        "available_fields": [
+          "name",
+          "status",
+          "created_at"
+        ],
+        "suggestion": "检查数据结构或API版本"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "数据解析",
+      "scenario": "字符编码错误",
+      "error_type": "UnicodeDecodeError",
+      "error_message": "'utf-8' codec can't decode byte 0xff in position 0",
+      "details": {
+        "encoding": "utf-8",
+        "position": 0,
+        "suggestion": "尝试其他编码方式(如gbk, latin1)"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "系统资源",
+      "scenario": "内存不足",
+      "error_type": "MemoryError",
+      "error_message": "Cannot allocate memory: insufficient system memory",
+      "details": {
+        "requested_memory": "8GB",
+        "available_memory": "500MB",
+        "operation": "large file processing",
+        "suggestion": "减少内存使用或增加系统内存"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "系统资源",
+      "scenario": "进程数超限",
+      "error_type": "OSError",
+      "error_message": "[Errno 24] Too many open files",
+      "details": {
+        "max_files": 1024,
+        "current_files": 1024,
+        "suggestion": "关闭未使用的文件句柄或增加系统限制"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "系统资源",
+      "scenario": "环境变量未设置",
+      "error_type": "EnvironmentError",
+      "error_message": "Required environment variable 'API_TOKEN' not set",
+      "details": {
+        "variable_name": "API_TOKEN",
+        "required_by": "GitHub API client",
+        "suggestion": "设置必需的环境变量"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "MCP工具",
+      "scenario": "GitHub MCP工具认证失败",
+      "error_type": "AuthenticationError",
+      "error_message": "GitHub API authentication failed: token invalid or expired",
+      "details": {
+        "tool": "mcp_github_get_file_contents",
+        "status_code": 401,
+        "fallback_tools": [
+          "mcp_fetch_fetch_markdown",
+          "本地实现"
+        ],
+        "suggestion": "配置有效的GitHub Personal Access Token"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "MCP工具",
+      "scenario": "云效组织ID无效",
+      "error_type": "InvalidParameterError",
+      "error_message": "Invalid organizationId: organization not found or access denied",
+      "details": {
+        "tool": "mcp_yunxiao_list_pipelines",
+        "parameter": "organizationId",
+        "provided_value": "invalid-org-id",
+        "suggestion": "使用mcp_yunxiao_get_current_organization_info获取正确的组织ID"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "MCP工具",
+      "scenario": "MCP工具调用超时",
+      "error_type": "TimeoutError",
+      "error_message": "MCP tool execution timeout after 60 seconds",
+      "details": {
+        "tool": "mcp_playwright_browser_navigate",
+        "timeout": 60,
+        "suggestion": "增加超时时间或使用降级方案"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "MCP工具",
+      "scenario": "浏览器未安装",
+      "error_type": "BrowserNotInstalledError",
+      "error_message": "Playwright browser not installed: chromium",
+      "details": {
+        "tool": "mcp_playwright_browser_snapshot",
+        "missing_browser": "chromium",
+        "suggestion": "运行 mcp_playwright_browser_install 安装浏览器"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "工作流",
+      "scenario": "依赖调用链断裂",
+      "error_type": "WorkflowError",
+      "error_message": "Workflow failed: step 3 depends on step 2 which failed",
+      "details": {
+        "workflow": "create_and_deploy_pipeline",
+        "failed_step": "step_2_get_service_connection",
+        "blocked_steps": [
+          "step_3_create_pipeline",
+          "step_4_run_pipeline"
+        ],
+        "suggestion": "修复失败步骤或跳过依赖步骤"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "工作流",
+      "scenario": "并行调用资源冲突",
+      "error_type": "ConcurrencyError",
+      "error_message": "Concurrent file modifications detected: conflict",
+      "details": {
+        "conflicting_operations": [
+          "edit_file: config.json",
+          "edit_file: config.json"
+        ],
+        "suggestion": "文件编辑操作必须顺序执行"
+      }
+    },
+    {
+      "timestamp": "2025-10-17 18:04:10",
+      "category": "工作流",
+      "scenario": "事务回滚失败",
+      "error_type": "RollbackError",
+      "error_message": "Failed to rollback changes: some operations are irreversible",
+      "details": {
+        "completed_operations": [
+          "create_pipeline",
+          "create_service_connection",
+          "delete_old_pipeline"
+        ],
+        "rollback_failed": "delete_old_pipeline (irreversible)",
+        "suggestion": "手动恢复或使用备份"
+      }
+    }
+  ]
+}
