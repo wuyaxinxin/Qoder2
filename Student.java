@@ -13,15 +13,15 @@
  *   - 实现学生状态判断
  * 依赖: Person.java
  * 修改记录:
- *   2025-10-11 - 初始版本创建
+ *   2025-10-11 -  初始版本创建
  */
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Student类 - 表示一个学生的完整信息
- * 继承自Person类，扩展学生特有功能
+ * Student类 - 表示一个 学生的完整信息
+ * 继承自Person类， 扩展学生特有功能
  */
 public class Student extends Person {
     private String studentId;
