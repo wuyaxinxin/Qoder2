@@ -10,12 +10,12 @@
 功能:
   - 基本运算（加、减、乘、除）
   - 科学计算（幂、平方根、对数）
-  - 统计计算（平均值、方差、标准差）
+  - 统计计算（平均值、 方差、标准差）
   - 历史记录管理
 依赖: math 模块
 使用示例:
   calc = Calculator()
-  result = calc.add(10, 5)
+  result = calc.add(10,  5)
   calc.power(2, 3)
   print(calc.get_history())
 修改记录:
