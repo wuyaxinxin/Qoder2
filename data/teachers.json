@@ -1,0 +1,10 @@
+{"teachers": [{
+  "teacherId": "T001",
+  "yearsOfExperience": 15,
+  "subject": "计算机科学",
+  "classes": [],
+  "name": "张教授",
+  "title": "教授",
+  "age": 45,
+  "email": "zhang@example.com"
+}]}

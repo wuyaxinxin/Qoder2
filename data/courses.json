@@ -1,0 +1,25 @@
+{"courses": [
+  {
+    "creditHours": 4,
+    "courseName": "数据结构与算法",
+    "instructor": "T001",
+    "endDate": "2026-01-15",
+    "description": "计算机科学基础课程",
+    "enrolledStudents": [
+      "2021001",
+      "2021002"
+    ],
+    "courseId": "CS101",
+    "startDate": "2025-09-01"
+  },
+  {
+    "creditHours": 4,
+    "courseName": "操作系统原理",
+    "instructor": "T001",
+    "endDate": "2026-01-15",
+    "description": "操作系统核心概念",
+    "enrolledStudents": ["2021001"],
+    "courseId": "CS102",
+    "startDate": "2025-09-01"
+  }
+]}

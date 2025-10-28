@@ -1,0 +1,23 @@
+{"students": [
+  {
+    "studentId": "2021001",
+    "major": "计算机科学",
+    "scores": {
+      "CS101": 92.5,
+      "CS102": 0
+    },
+    "grade": 3,
+    "name": "李明",
+    "age": 20,
+    "email": "liming@example.com"
+  },
+  {
+    "studentId": "2021002",
+    "major": "计算机科学",
+    "scores": {"CS101": 88},
+    "grade": 3,
+    "name": "王芳",
+    "age": 21,
+    "email": "wangfang@example.com"
+  }
+]}
