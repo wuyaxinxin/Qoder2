@@ -20,7 +20,7 @@
   student.add_score("英语", 87)
   print(student.get_average_score())
 修改记录:
-  2025-10-11 - 初始版本创建
+  2025-10-11 - 初始版本 创建
 """
 
 from typing import Dict, List, Optional
