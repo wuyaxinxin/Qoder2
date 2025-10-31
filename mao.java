@@ -9,7 +9,7 @@ public class mao {
         }
         
         int n = arr.length;
-        // 外层循环控制排序轮数
+        // 外层循环控制排序轮数//
         for (int i = 0; i < n - 1; i++) {
             boolean swapped = false;
             // 内层循环进行相邻元素比较和交换
