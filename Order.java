@@ -13,6 +13,7 @@
  * 依赖: 需要Product类支持,使用Java标准库
  * 修改记录:
  *   2025-10-27 - 初始版本创建
+ * 水月洞天
  */
 
 import java.time.LocalDateTime;
