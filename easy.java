@@ -56,7 +56,7 @@ public class easy {
     }
     
     /**
-     * 主函数 - 测试选择排序
+     * 主函数 - 测试选择排序，只道当时是寻常
      */
     public static void main(String[] args) {
         // 测试用例1: 普通数组
