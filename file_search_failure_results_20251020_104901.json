@@ -1,0 +1,79 @@
+{
+  "summary": {
+    "total_scenarios": 10,
+    "timestamp": "20251020_104901",
+    "description": "文件搜索失败场景模拟结果"
+  },
+  "scenarios": [
+    {
+      "scenario": "文件不存在",
+      "error_type": "FileNotFoundError",
+      "description": "尝试搜索文件 'nonexistent_file.txt'，但文件不存在于当前目录或指定路径",
+      "solution": "1. 验证文件路径是否正确\n2. 检查文件名拼写\n3. 使用通配符模式搜索\n4. 列出目录内容确认文件位置",
+      "timestamp": "2025-10-20T10:49:01.794167"
+    },
+    {
+      "scenario": "权限不足",
+      "error_type": "PermissionError",
+      "description": "尝试访问 '/root/system_file.conf'，但当前用户没有读取权限",
+      "solution": "1. 检查文件/目录权限设置\n2. 使用具有足够权限的用户账户\n3. 请求管理员授权\n4. 在允许的目录范围内搜索",
+      "timestamp": "2025-10-20T10:49:01.794205"
+    },
+    {
+      "scenario": "路径格式无效",
+      "error_type": "ValueError/OSError",
+      "description": "提供的路径格式不正确或路径不存在于文件系统中",
+      "solution": "1. 使用绝对路径或相对于工作目录的路径\n2. 避免跨平台路径格式问题\n3. 验证路径是否在允许访问的范围内\n4. 使用os.path或pathlib规范化路径",
+      "timestamp": "2025-10-20T10:49:01.794287"
+    },
+    {
+      "scenario": "通配符模式无匹配",
+      "error_type": "ValueError",
+      "description": "使用通配符模式搜索，但没有找到任何匹配的文件",
+      "solution": "1. 检查文件扩展名是否正确\n2. 确认文件确实存在于搜索路径中\n3. 尝试更宽泛的搜索模式\n4. 列出目录内容查看实际文件名",
+      "timestamp": "2025-10-20T10:49:01.799009"
+    },
+    {
+      "scenario": "目录不存在",
+      "error_type": "NotADirectoryError",
+      "description": "尝试在目录 '/nonexistent/directory' 中搜索文件，但该目录不存在",
+      "solution": "1. 验证目录路径是否正确\n2. 检查目录是否已被删除或移动\n3. 使用list_dir工具列出父目录内容\n4. 从项目根目录开始逐级确认路径",
+      "timestamp": "2025-10-20T10:49:01.799067"
+    },
+    {
+      "scenario": "搜索超时",
+      "error_type": "TimeoutError",
+      "description": "在大型目录树中搜索文件时操作超时",
+      "solution": "1. 缩小搜索范围到特定子目录\n2. 使用更精确的搜索模式\n3. 限制搜索深度\n4. 对大型项目使用索引工具",
+      "timestamp": "2025-10-20T10:49:01.799092"
+    },
+    {
+      "scenario": "文件编码错误",
+      "error_type": "UnicodeDecodeError",
+      "description": "读取文件内容时遇到编码问题，可能文件使用了非UTF-8编码",
+      "solution": "1. 尝试其他编码格式(GBK, Latin-1等)\n2. 使用errors='ignore'跳过无效字符\n3. 转换文件编码为UTF-8\n4. 仅搜索文件名而不读取内容",
+      "timestamp": "2025-10-20T10:49:01.799117"
+    },
+    {
+      "scenario": "搜索工具API失败",
+      "error_type": "RuntimeError",
+      "description": "调用文件搜索工具时API返回错误或超时",
+      "solution": "1. 使用备用搜索方法(如grep_code)\n2. 通过list_dir手动遍历目录\n3. 使用终端命令(find, grep)作为降级方案\n4. 检查工具服务状态并重试",
+      "timestamp": "2025-10-20T10:49:01.799139"
+    },
+    {
+      "scenario": "搜索结果模糊/过多",
+      "error_type": "TooManyResultsWarning",
+      "description": "搜索模式 '*.py' 返回了大量结果，难以有效处理",
+      "solution": "1. 使用更具体的搜索模式\n2. 添加目录限制缩小范围\n3. 使用正则表达式精确匹配\n4. 分批处理搜索结果",
+      "timestamp": "2025-10-20T10:49:01.799617"
+    },
+    {
+      "scenario": "大小写敏感性问题",
+      "error_type": "CaseMismatchError",
+      "description": "在大小写敏感的文件系统上，文件名大小写不匹配导致搜索失败",
+      "solution": "1. 使用精确的大小写匹配\n2. 使用不区分大小写的搜索选项\n3. 列出目录内容确认实际文件名\n4. 使用正则表达式忽略大小写",
+      "timestamp": "2025-10-20T10:49:01.799658"
+    }
+  ]
+}
