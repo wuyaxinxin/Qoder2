@@ -22,7 +22,7 @@ def bubble_sort(arr):
         return arr
     
     n = len(arr)
-    # 创建副本以避免修改原列表
+    # 创建副本以避免修改原列表，相见欢
     result = arr.copy()
     
     # 外层循环控制排序轮数
