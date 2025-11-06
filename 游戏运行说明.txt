@@ -1,0 +1,103 @@
+始终生效
+
+# 吃鱼小游戏 - 运行说明
+
+## 游戏简介
+这是一个基于Python和Pygame开发的休闲小游戏。玩家控制一条鱼，通过吃掉比自己小的鱼来成长，同时避开比自己大的鱼。
+
+## 环境要求
+- Python 3.6+
+- Pygame 2.0.0+
+
+## 安装步骤
+
+### 1. 安装Python
+确保系统已安装Python 3.6或更高版本。可以通过以下命令检查：
+```bash
+python --version
+# 或
+python3 --version
+```
+
+### 2. 安装依赖
+```bash
+pip install -r requirements.txt
+# 或
+pip3 install -r requirements.txt
+```
+
+如果上述命令失败，可以直接安装pygame：
+```bash
+pip install pygame
+# 或
+pip3 install pygame
+```
+
+## 运行游戏
+
+在项目目录下执行：
+```bash
+python fish_game.py
+# 或
+python3 fish_game.py
+```
+
+## 游戏操作
+
+### 主菜单
+- **鼠标点击**：选择菜单选项
+  - 开始游戏：进入游戏
+  - 最高分：查看历史最高分
+  - 退出：关闭游戏
+
+### 游戏中
+- **方向键** 或 **WASD**：控制鱼的移动
+  - ↑ / W：向上移动
+  - ↓ / S：向下移动
+  - ← / A：向左移动
+  - → / D：向右移动
+- **ESC键**：暂停/继续游戏
+
+### 游戏规则
+1. 绿色的鱼：比你小，可以吃掉
+2. 黄色的鱼：体型接近，小心靠近
+3. 红色的鱼：比你大，必须避开！
+4. 吃掉小鱼后你会变大，但速度会变慢
+5. 碰到大鱼游戏结束
+
+## 游戏目标
+- 尽可能吃更多的鱼，获得更高分数
+- 挑战自己的最高分记录
+
+## 文件结构
+```
+fish_game/
+├── fish_game.py           # 主程序
+├── fish_game_config.py    # 游戏配置
+├── fish_models.py         # 鱼类模型
+├── collision_detector.py  # 碰撞检测
+├── game_state_manager.py  # 状态管理
+├── score_system.py        # 计分系统
+├── renderer.py            # 渲染系统
+├── requirements.txt       # 依赖列表
+└── 游戏运行说明.txt       # 本文件
+```
+
+## 常见问题
+
+### Q: 游戏窗口打不开或闪退
+A: 请确保已正确安装pygame库，并检查Python版本是否符合要求。
+
+### Q: 游戏运行卡顿
+A: 可以在fish_game_config.py中调整FPS参数或减少NPC_COUNT。
+
+### Q: 最高分记录在哪里？
+A: 最高分保存在fish_game_highscore.json文件中，会自动创建。
+
+## 技术支持
+如遇到问题，请检查：
+1. Python版本是否正确
+2. Pygame是否成功安装
+3. 是否在正确的目录下运行游戏
+
+祝游戏愉快！
