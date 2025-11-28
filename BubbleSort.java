@@ -110,7 +110,68 @@ public class BubbleSort {
     }
     
     /**
-     * 主函数，用于测试冒泡排序
+     * 双向冒泡排序(鸡尾酒排序)
+     * 在两个方向上交替进行冒泡,可以提高某些情况下的效率
+     * 
+     * @param arr 待排序的整型数组
+     */
+    public static void bubbleSortCocktail(int[] arr) {
+        if (arr == null || arr.length <= 1) {
+            return;
+        }
+            
+        int left = 0;
+        int right = arr.length - 1;
+        boolean swapped = true;
+            
+        while (left < right && swapped) {
+            swapped = false;
+                
+            // 从左到右冒泡
+            for (int i = left; i < right; i++) {
+                if (arr[i] > arr[i + 1]) {
+                    int temp = arr[i];
+                    arr[i] = arr[i + 1];
+                    arr[i + 1] = temp;
+                    swapped = true;
+                }
+            }
+            right--;
+                
+            // 从右到左冒泡
+            for (int i = right; i > left; i--) {
+                if (arr[i] < arr[i - 1]) {
+                    int temp = arr[i];
+                    arr[i] = arr[i - 1];
+                    arr[i - 1] = temp;
+                    swapped = true;
+                }
+            }
+            left++;
+        }
+    }
+        
+    /**
+     * 验证数组是否已排序
+     * 
+     * @param arr 待验证的数组
+     * @return 如果数组已按升序排序返回true,否则返回false
+     */
+    public static boolean isSorted(int[] arr) {
+        if (arr == null || arr.length <= 1) {
+            return true;
+        }
+            
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (arr[i] > arr[i + 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+        
+    /**
+     * 主函数,用于测试冒泡排序
      */
     public static void main(String[] args) {
         // 测试基础冒泡排序
@@ -140,7 +201,7 @@ public class BubbleSort {
         System.out.print("排序后: ");
         printArray(arr3);
         
-        // 测试已排序数组（验证优化效果）
+        // 测试已排序数组(验证优化效果)
         System.out.println("\n=== 测试已排序数组 ===");
         int[] arr4 = {1, 2, 3, 4, 5};
         System.out.print("排序前: ");
@@ -148,5 +209,15 @@ public class BubbleSort {
         bubbleSortOptimized(arr4);
         System.out.print("排序后: ");
         printArray(arr4);
+        
+        // 测试鸡尾酒排序
+        System.out.println("\n=== 测试鸡尾酒排序 ===");
+        int[] arr5 = {5, 1, 4, 2, 8, 0, 2};
+        System.out.print("排序前: ");
+        printArray(arr5);
+        bubbleSortCocktail(arr5);
+        System.out.print("排序后: ");
+        printArray(arr5);
+        System.out.println("是否已排序: " + isSorted(arr5));
     }
 }
