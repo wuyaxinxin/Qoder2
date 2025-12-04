@@ -235,6 +235,16 @@ public class GamePanel extends JPanel implements ActionListener {
             int x = (getWidth() - fm.stringWidth(message)) / 2;
             int y = getHeight() / 2;
             g2d.drawString(message, x, y);
-        }
     }
-}
+    
+    /**
+     * 获取当前游戏信息
+     * @return 包含游戏状态、分数等信息的字符串
+     */
+    public String getGameInfo() {
+        StringBuilder info = new StringBuilder();
+        info.append("游戏状态: ").append(gameModel.getGameState()).append("\n");
+        info.append("当前分数: ").append(gameModel.getScore()).append("\n");
+        info.append("蛇的长度: ").append(gameModel.getSnake().getBody().size()).append("\n");
+        return info.toString();
+    }
