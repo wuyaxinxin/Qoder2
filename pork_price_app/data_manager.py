@@ -9,7 +9,7 @@ import math
 
 def generate_mock_data():
     """
-    生成模拟的猪肉价格数据(2023-01-01至2024-12-31)
+    生成模拟的英伟达芯片销量数据(2023-01-01至2024-12-31)
     
     返回:
         dict: 包含metadata和data的字典
@@ -20,24 +20,33 @@ def generate_mock_data():
     data_points = []
     current_date = start_date
     
-    base_price = 22.0
+    # 芯片型号：NVIDIA A100 80GB GPU
+    base_sales = 15000  # 基础日销量（台）
     
     while current_date <= end_date:
         day_of_year = current_date.timetuple().tm_yday
+        days_since_start = (current_date - start_date).days
         
-        seasonal_factor = 2.5 * math.sin(2 * math.pi * (day_of_year - 30) / 365)
+        # 趋势因素：AI热潮推动增长（+30%年增长率）
+        growth_factor = (days_since_start / 365) * 0.3 * base_sales
         
-        cycle_factor = 1.5 * math.sin(2 * math.pi * day_of_year / 730)
+        # 季节性因素：Q4财年末采购高峰
+        seasonal_factor = 3000 * math.sin(2 * math.pi * (day_of_year - 274) / 365)
+        # 274对应10月1日，Q4开始
         
-        random_noise = random.gauss(0, 0.5)
+        # 周期性因素：新品发布周期影响
+        cycle_factor = 2000 * math.sin(2 * math.pi * day_of_year / 180)
         
-        price = base_price + seasonal_factor + cycle_factor + random_noise
-        price = max(18.0, min(28.0, price))
-        price = round(price, 2)
+        # 随机波动：供应链和市场波动
+        random_noise = random.gauss(0, 800)
+        
+        sales = base_sales + growth_factor + seasonal_factor + cycle_factor + random_noise
+        sales = max(8000, min(25000, sales))  # 销量范围：8000-25000台/日
+        sales = int(round(sales))  # 销量为整数
         
         data_points.append({
             "date": current_date.strftime("%Y-%m-%d"),
-            "price": price
+            "sales": sales
         })
         
         current_date += timedelta(days=1)
@@ -45,8 +54,9 @@ def generate_mock_data():
     result = {
         "metadata": {
             "source": "模拟数据",
-            "unit": "元/公斤",
-            "description": "全国猪肉平均批发价格"
+            "unit": "台/日",
+            "chip_model": "NVIDIA A100 80GB GPU",
+            "description": "全球NVIDIA A100芯片日销量"
         },
         "data": data_points
     }
@@ -73,10 +83,10 @@ def load_data():
     从JSON文件加载数据
     
     返回:
-        dict: 包含价格数据的字典,如果文件不存在则生成新数据
+        dict: 包含销量数据的字典,如果文件不存在则生成新数据
     """
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    data_file = os.path.join(current_dir, 'data', 'pork_prices.json')
+    data_file = os.path.join(current_dir, 'data', 'nvidia_chip_sales.json')
     
     try:
         with open(data_file, 'r', encoding='utf-8') as f:
@@ -108,9 +118,9 @@ def validate_data(data):
         return False
     
     for item in data['data']:
-        if 'date' not in item or 'price' not in item:
+        if 'date' not in item or 'sales' not in item:
             return False
-        if not isinstance(item['price'], (int, float)):
+        if not isinstance(item['sales'], int):
             return False
     
     return True
@@ -119,7 +129,7 @@ def validate_data(data):
 if __name__ == '__main__':
     data = generate_mock_data()
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(current_dir, 'data', 'pork_prices.json')
+    file_path = os.path.join(current_dir, 'data', 'nvidia_chip_sales.json')
     save_data_to_json(data, file_path)
     print(f"数据已生成并保存到: {file_path}")
     print(f"数据点数量: {len(data['data'])}")

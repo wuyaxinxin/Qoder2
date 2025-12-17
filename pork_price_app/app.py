@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template
 from pork_price_app.data_manager import load_data
-from pork_price_app.chart_generator import create_price_chart
+from pork_price_app.chart_generator import create_sales_chart
 
 app = Flask(__name__)
 
@@ -10,11 +10,11 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     """
-    主页路由,展示猪肉价格曲线图
+    主页路由,展示英伟达芯片销量曲线图
     """
     data = load_data()
     
-    chart_html = create_price_chart(data)
+    chart_html = create_sales_chart(data)
     
     metadata = data.get('metadata', {})
     
@@ -22,7 +22,8 @@ def index():
         'index.html',
         chart_html=chart_html,
         data_source=metadata.get('source', '未知'),
-        unit=metadata.get('unit', '元/公斤'),
+        unit=metadata.get('unit', '台/日'),
+        chip_model=metadata.get('chip_model', 'NVIDIA A100'),
         description=metadata.get('description', '')
     )
 

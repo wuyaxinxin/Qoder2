@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>国内猪肉价格走势</title>
+    <title>NVIDIA芯片销量趋势</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>国内猪肉价格浮动曲线</h1>
+            <h1>NVIDIA {{ chip_model }} 销量曲线</h1>
             <p class="subtitle">{{ description }}</p>
         </header>
         
@@ -20,7 +20,7 @@
         </main>
         
         <footer>
-            <p>数据来源: {{ data_source }} | 单位: {{ unit }}</p>
+            <p>芯片型号: {{ chip_model }} | 数据来源: {{ data_source }} | 单位: {{ unit }}</p>
             <p class="note">提示: 使用鼠标滚轮缩放,拖动查看不同时间段,悬停查看详细数据</p>
         </footer>
     </div>

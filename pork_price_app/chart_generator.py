@@ -4,33 +4,33 @@ import plotly.graph_objects as go
 from datetime import datetime
 
 
-def create_price_chart(data):
+def create_sales_chart(data):
     """
-    创建Plotly交互式价格曲线图
+    创建Plotly交互式销量曲线图
     
     参数:
-        data (dict): 包含价格数据的字典
+        data (dict): 包含销量数据的字典
         
     返回:
         str: Plotly图表的HTML代码
     """
     dates = [item['date'] for item in data['data']]
-    prices = [item['price'] for item in data['data']]
+    sales = [item['sales'] for item in data['data']]
     
     fig = go.Figure()
     
     fig.add_trace(go.Scatter(
         x=dates,
-        y=prices,
+        y=sales,
         mode='lines',
-        name='猪肉价格',
-        line=dict(color='#1f77b4', width=2),
-        hovertemplate='<b>日期:</b> %{x}<br><b>价格:</b> ¥%{y:.2f}/公斤<extra></extra>'
+        name='A100销量',
+        line=dict(color='#76b900', width=2),
+        hovertemplate='<b>日期:</b> %{x}<br><b>销量:</b> %{y:,}台<extra></extra>'
     ))
     
     fig.update_layout(
         title={
-            'text': '国内猪肉价格走势',
+            'text': 'NVIDIA A100 芯片全球销量趋势',
             'x': 0.5,
             'xanchor': 'center',
             'font': {'size': 24, 'family': 'Arial, sans-serif'}
@@ -54,7 +54,7 @@ def create_price_chart(data):
             type='date'
         ),
         yaxis=dict(
-            title='价格 (元/公斤)',
+            title='销量 (台/日)',
             showgrid=True,
             gridcolor='lightgray'
         ),
@@ -68,7 +68,7 @@ def create_price_chart(data):
     
     html_str = fig.to_html(
         include_plotlyjs='cdn',
-        div_id='price-chart',
+        div_id='sales-chart',
         config={
             'displayModeBar': True,
             'displaylogo': False,
@@ -83,5 +83,5 @@ if __name__ == '__main__':
     from data_manager import load_data
     
     data = load_data()
-    html = create_price_chart(data)
+    html = create_sales_chart(data)
     print("图表生成成功")
