@@ -28,3 +28,9 @@ class Calculator:
     
     def get_history(self):
         return self.history
+    
+    def clear_history(self):
+        self.history = []
+    
+    def divide(self, a, b):
+        return a / b
