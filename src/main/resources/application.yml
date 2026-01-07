@@ -1,0 +1,204 @@
+spring:
+  application:
+    name: distributed-rate-limiter
+
+  profiles:
+    active: dev
+
+  # JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          batch_size: 100
+        order_inserts: true
+        order_updates: true
+    open-in-view: false
+
+  # Jackson Configuration
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: non_null
+
+# Server Configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus,metrics,info
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}
+  endpoint:
+    health:
+      show-details: when_authorized
+
+# Rate Limit Configuration
+rate-limit:
+  enabled: true
+  default-algorithm: TOKEN_BUCKET
+
+  # Whitelist Configuration
+  whitelist:
+    ips:
+      - "127.0.0.1"
+      - "::1"
+    paths:
+      - "/actuator/**"
+      - "/swagger-ui/**"
+      - "/api-docs/**"
+      - "/v3/api-docs/**"
+
+  # Blacklist Configuration
+  blacklist:
+    enabled: true
+    check-redis-first: true
+
+  # Fallback Configuration
+  fallback:
+    enabled: true
+    local-cache:
+      max-size: 10000
+      ttl-minutes: 10
+    health-check-interval-seconds: 5
+    permissive-mode:
+      enabled: false
+
+  # Monitoring Configuration
+  monitoring:
+    enabled: true
+    async-executor:
+      core-pool-size: 4
+      max-pool-size: 16
+      queue-capacity: 1000
+    violation-batch-size: 100
+    violation-batch-timeout-seconds: 1
+    abuse-detection:
+      enabled: true
+      short-term-window-minutes: 5
+      short-term-threshold: 20
+      long-term-window-minutes: 60
+      long-term-threshold: 100
+
+  # Default Rules
+  rules:
+    # Global IP Rate Limit (Anti-crawler)
+    - id: global-ip-limit
+      name: Global IP Rate Limit
+      enabled: true
+      priority: 5
+      algorithm: SLIDING_WINDOW
+      dimensions:
+        - IP_ADDRESS
+      scope:
+        endpoints:
+          - "/api/**"
+        methods:
+          - "*"
+      limits:
+        DEFAULT:
+          window-size-seconds: 60
+          max-requests: 100
+
+    # API Rate Limit by User Tier
+    - id: api-user-tier-limit
+      name: API User Tier Rate Limit
+      enabled: true
+      priority: 10
+      algorithm: TOKEN_BUCKET
+      dimensions:
+        - USER_ID
+        - ENDPOINT
+      scope:
+        endpoints:
+          - "/api/**"
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+        user-tiers:
+          - BASIC
+          - VIP
+          - PREMIUM
+          - ADMIN
+      limits:
+        BASIC:
+          capacity: 10
+          refill-rate: 1.0
+        VIP:
+          capacity: 50
+          refill-rate: 5.0
+        PREMIUM:
+          capacity: 200
+          refill-rate: 20.0
+        ADMIN:
+          capacity: 1000
+          refill-rate: 100.0
+
+    # Write Operations Strict Limit
+    - id: write-operations-limit
+      name: Write Operations Strict Limit
+      enabled: true
+      priority: 15
+      algorithm: TOKEN_BUCKET
+      dimensions:
+        - USER_ID
+        - ENDPOINT
+      scope:
+        endpoints:
+          - "/api/**"
+        methods:
+          - POST
+          - PUT
+          - DELETE
+      limits:
+        BASIC:
+          capacity: 5
+          refill-rate: 0.5
+        VIP:
+          capacity: 20
+          refill-rate: 2.0
+        PREMIUM:
+          capacity: 100
+          refill-rate: 10.0
+        ADMIN:
+          capacity: 500
+          refill-rate: 50.0
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    com.ratelimit: DEBUG
+    org.springframework.data.redis: WARN
+    io.lettuce.core: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# Springdoc OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
