@@ -1,0 +1,56 @@
+spring:
+  # PostgreSQL for Production
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:ratelimit_db}
+    username: ${DB_USERNAME:ratelimit}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  # Redis Cluster for Production
+  redis:
+    cluster:
+      nodes:
+        - ${REDIS_NODE_1:redis-node-1:6379}
+        - ${REDIS_NODE_2:redis-node-2:6379}
+        - ${REDIS_NODE_3:redis-node-3:6379}
+      max-redirects: 3
+    password: ${REDIS_PASSWORD}
+    timeout: 5000ms
+    lettuce:
+      pool:
+        max-active: 64
+        max-idle: 16
+        min-idle: 8
+        max-wait: 5000ms
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+# Rate Limit Production Configuration
+rate-limit:
+  fallback:
+    permissive-mode:
+      enabled: false  # Disable permissive mode in production
+
+  monitoring:
+    abuse-detection:
+      enabled: true
+      long-term-threshold: 50  # Stricter in production
+
+# Logging for Production
+logging:
+  level:
+    root: WARN
+    com.ratelimit: INFO
+    org.springframework.data.redis: ERROR
+  file:
+    name: logs/rate-limiter.log
+    max-size: 100MB
+    max-history: 30
