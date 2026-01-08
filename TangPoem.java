@@ -9,5 +9,6 @@ public class TangPoem {
         System.out.println("疑是地上霜。");
         System.out.println("举头望明月，");
         System.out.println("低头思故。");
+        System.out.println("-- 唐诗结束 --");
     }
 }
