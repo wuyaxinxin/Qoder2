@@ -23,6 +23,7 @@ public class Calculator {
     
     public static int subtract(int a, int b) {
         return a - b;
+        // 可以添加更多逻辑，例如处理负数
     }
     
     public static int multiply(int a, int b) {
